@@ -8,6 +8,7 @@ TagManager:
   - sword
   - archer
   - villan
+  - arrow
   layers:
   - Default
   - TransparentFX

@@ -24,6 +24,18 @@ public class ArrowShoot : MonoBehaviour
         startPos = forPosition.transform.position;
         target = transform.forward;
     }
+    public void Shoot()
+    {
+        transform.position = forPosition.transform.position;
+
+        target = transform.forward;
+        target.x = -250f;
+        transform.rotation = Quaternion.Euler(Vector3.zero);
+
+        FireCannonAtPoint(target);
+        myAudioSource.Play();
+        arhcer.GetComponent<FirstPersonAIO>().StartAnim();
+    }
 
     // Update is called once per frame
     void Update()
@@ -33,10 +45,10 @@ public class ArrowShoot : MonoBehaviour
             // ArrowFlight();
             transform.position = forPosition.transform.position;
 
-            target = transform.forward ;
+            target = transform.forward;
             target.x = -250f;
             transform.rotation = Quaternion.Euler(Vector3.zero);
-            
+
             FireCannonAtPoint(target);
             myAudioSource.Play();
             arhcer.GetComponent<FirstPersonAIO>().StartAnim();
@@ -46,7 +58,7 @@ public class ArrowShoot : MonoBehaviour
             gArrowRigidBody.velocity = Vector3.zero;
             gArrowRigidBody.useGravity = false;
 
-        } 
+        }
     }
 
     public void ArrowFlight()
@@ -89,7 +101,7 @@ public class ArrowShoot : MonoBehaviour
         var velocity = BallisticVelocity(point, angle);
         Debug.Log("Firing at " + point + " velocity " + velocity);
         gArrowRigidBody.useGravity = true;
-       gArrowRigidBody.transform.position = transform.position;
+        gArrowRigidBody.transform.position = transform.position;
         gArrowRigidBody.velocity = velocity * 0.5f;
     }
 
@@ -110,7 +122,7 @@ public class ArrowShoot : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-       if (collision.collider.gameObject.tag == "villan")
+        if (collision.collider.gameObject.tag == "villan")
         {
             print("Hi I am Villan ");
             explosionParticleEffect.transform.position = collision.collider.gameObject.transform.position;

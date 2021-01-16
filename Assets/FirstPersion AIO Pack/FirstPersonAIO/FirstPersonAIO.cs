@@ -18,6 +18,7 @@ public class FirstPersonAIO : MonoBehaviour
     public Animator swordAnim;
     private int CMD = 0;
     private SerialPort sp = new SerialPort("COM4", 5000000);
+    private GameObject arrowGameObject;
     #region Variables
 
 
@@ -226,6 +227,7 @@ public class FirstPersonAIO : MonoBehaviour
 
         #endregion
         swordAnim = GameObject.FindGameObjectWithTag("archer").GetComponent<Animator>();
+        arrowGameObject = GameObject.FindGameObjectWithTag("arrow");
     }
 
 
@@ -241,8 +243,8 @@ public class FirstPersonAIO : MonoBehaviour
 
     private void Start()
     {
-        //sp.Open();
-       // sp.ReadTimeout = 1;
+        sp.Open();
+        sp.ReadTimeout = 1;
         #region Look Settings - Start
 
         if (autoCrosshair || drawStaminaMeter)
@@ -478,6 +480,74 @@ public class FirstPersonAIO : MonoBehaviour
 
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
+        if (sp.IsOpen)
+        {
+            try
+            {
+                ReadCom();
+                if (Input.GetKey("d") || CMD == 120)
+                {
+
+                    horizontalInput = +1f;
+                }
+
+                if (Input.GetKey("a") || CMD == 96)
+                {
+                    horizontalInput = -1f;
+                }
+
+                if (Input.GetKey("s") || CMD == 128)
+                {
+                    verticalInput = +1f;
+                }
+
+
+                if (Input.GetKey("w") || CMD == 24)
+                {
+                    verticalInput = -1f;
+                }
+
+                if(CMD==126)
+                {
+                    arrowGameObject.GetComponent<ArrowShoot>().Shoot();
+                }
+
+            }
+            catch (System.Exception)
+            {
+
+            }
+        }
+        else
+        {
+            if (Input.GetKey("d") || CMD == 120)
+            {
+
+                horizontalInput = +1f;
+            }
+
+            if (Input.GetKey("a") || CMD == 96)
+            {
+                horizontalInput = -1f;
+            }
+
+            if (Input.GetKey("s") || CMD == 128)
+            {
+                verticalInput = +1f;
+            }
+
+
+            if (Input.GetKey("w") || CMD == 24)
+            {
+                verticalInput = -1f;
+            }
+
+            if (CMD == 126)
+            {
+                arrowGameObject.GetComponent<ArrowShoot>().Shoot();
+            }
+        }
+        
         inputXY = new Vector2(horizontalInput, verticalInput);
         if (inputXY.magnitude > 1) { inputXY.Normalize(); }
 

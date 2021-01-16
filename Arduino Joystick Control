@@ -1,0 +1,61 @@
+const int x = A0;
+const int y = A1;
+const int button = 2;
+ 
+int curX = 0;
+int curY = 0;
+ 
+void setup()
+{
+  pinMode(A0, INPUT);
+  pinMode(A1, INPUT);
+  pinMode(button, INPUT);
+  digitalWrite(button, HIGH);
+  Serial.begin(5000000);
+}
+ 
+void loop()
+{
+  curX = analogRead(x);
+  curY = analogRead(y);
+ 
+if(digitalRead(button)==1){
+  if(analogRead(x) <=50)
+  {
+    Serial.write(8);
+    Serial.flush();
+    //Serial.println("UP");
+    delay(10);
+  }else if(analogRead(x) >= 950)
+  {
+    Serial.write(2);
+    Serial.flush();
+    //Serial.println("DOWN");
+    delay(10);
+  }else if (analogRead(y) <= 50)
+  {
+    Serial.write(6);
+    Serial.flush();
+    //Serial.println("RIGHT");
+    delay(10);
+  }else if (analogRead(y) >= 950)
+  {
+    Serial.write(4);
+    Serial.flush();
+    //Serial.println("LEFT");
+    delay(10);
+  }else
+  {
+    Serial.write(0);
+    Serial.flush();
+    //Serial.println(0);
+    delay(10);
+  }
+}
+ else{
+  Serial.write(7);
+  Serial.flush();
+  //Serial.println("FIRE");
+  delay(10);
+ }
+}

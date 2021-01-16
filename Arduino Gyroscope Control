@@ -1,0 +1,62 @@
+#include <Wire.h>
+#include <I2Cdev.h> 
+#include <MPU6050.h>
+
+
+MPU6050 mpu; 
+int16_t ax, ay, az; 
+int16_t gx, gy, gz; 
+
+int val1; 
+int val2; 
+int prevVal1; 
+int prevVal2; 
+
+void setup() 
+{ 
+Wire.begin(); 
+Serial.begin(5000000); 
+mpu.initialize(); 
+} 
+
+void loop() 
+{ 
+mpu.getMotion6(&ax, &ay, &az, &gx, &gy, &gz); 
+val1 = map(ax, -17000, 17000, 0, 179);
+val2 = map(ay, -17000, 17000, 0, 179); 
+if (val1 != prevVal1)
+if(val1 <=60)
+  {
+    Serial.write(2);
+    Serial.flush();
+    //Serial.println("UP");
+    delay(10);
+  }else if(val1 >= 160)
+  {
+    Serial.write(8);
+    Serial.flush();
+    //Serial.println("DOWN");
+    delay(10);
+  }
+  else if (val2 <= 50)
+  {
+    Serial.write(6);
+    Serial.flush();
+    //Serial.println("RIGHT");
+    delay(10);
+  }else if (val2 >= 150)
+  {
+    Serial.write(4);
+    Serial.flush();
+    //Serial.println("LEFT");
+    delay(10);
+  }else
+  {
+    Serial.write(0);
+    Serial.flush();
+    //Serial.println(0);
+    delay(10);
+  }
+}
+
+

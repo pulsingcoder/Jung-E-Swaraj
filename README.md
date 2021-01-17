@@ -12,3 +12,9 @@ This PC game is based on the theme of the First war of Independence i.e., usuall
 ### 2. Arduino UNO R3
 ### 3. Autodesk Maya
 
+---
+
+## <u> Game Glimpse: </u>
+![GitHub Logo](https://github.com/pulsingcoder/Jung-E-Swaraj/blob/main/Read-Me-Images/rani3.jpeg)
+![GitHub Logo](https://github.com/pulsingcoder/Jung-E-Swaraj/blob/main/Read-Me-Images/rani2.jpeg)
+![GitHub Logo](https://github.com/pulsingcoder/Jung-E-Swaraj/blob/main/Read-Me-Images/rani4.jpeg)
